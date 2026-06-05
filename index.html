@@ -4,25 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- ============================================================= -->
-<!--  QUICK-EDIT GUIDE  (replace anything inside [ SQUARE BRACKETS ]) -->
-<!--  • Brand: the demo name is "Lock Supply Direct" — rename it everywhere to     -->
-<!--    your chosen brand (and run a USPTO + domain check first).      -->
-<!--  • Products: edit names, prices, specs in the "Shop" section.     -->
-<!--  • Photos: drop images into an /images folder (lock1.jpg ...);    -->
-<!--    until then, styled placeholders show automatically.            -->
-<!--  • Orders: paste your Formspree endpoint into [FORMSPREE_ENDPOINT]-->
-<!--    (free at formspree.io). For real CARD payments, replace each    -->
-<!--    product's data-buy with a Stripe Payment Link or Shopify Buy    -->
-<!--    Button — a static GitHub Pages site can't process cards alone.  -->
-<!--  • Contact: [EMAIL], [PHONE].                                      -->
-<!-- ============================================================= -->
-
 <title>Lock Supply Direct · Smart Locks &amp; Keyless Entry for Modern Homes</title>
 <meta name="description" content="Premium smart locks with keypad, fingerprint and app control. Works with Alexa, Google & Apple. Easy install, real support, and a fit guarantee. Built for homeowners and short-term rental hosts." />
 <meta property="og:title" content="Lock Supply Direct · Keyless Security, Done Right" />
 <meta property="og:description" content="Smart locks that fit your door and your life. Free US shipping, 30-day returns, expert support." />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://locksupplydirect.com/" />
+<meta property="og:image" content="https://locksupplydirect.com/images/lock-hero.jpg" />
+<link rel="canonical" href="https://locksupplydirect.com/" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315161a'/%3E%3Cpath d='M11 14v-2a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1zm2 0h6v-2a3 3 0 0 0-6 0z' fill='%23c8962e'/%3E%3C/svg%3E" />
 
@@ -30,7 +19,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://cdn.snipcart.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.css" />
+<link rel="preload" href="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.css" as="style" onload="this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.css" /></noscript>
 
 <style>
   /* ===================== THEME (black + brass + white) ===================== */
@@ -83,10 +73,11 @@
   .menu a{font-size:.93rem;font-weight:600;color:var(--ink-2);transition:color .2s;position:relative}
   .menu a::after{content:"";position:absolute;left:0;bottom:-5px;height:2px;width:0;background:var(--brass);transition:width .25s var(--ease)}
   .menu a:hover::after{width:100%}
-  .cart-btn{position:relative;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;display:grid;place-items:center;cursor:pointer;transition:border-color .2s}
+  .cart-btn{position:relative;background:none;border:1px solid var(--line);border-radius:10px;min-width:44px;height:44px;padding:0 .75rem;display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;transition:border-color .2s}
   .cart-btn:hover{border-color:var(--ink)}
-  .cart-btn svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.8}
-  .cart-count{position:absolute;top:-7px;right:-7px;background:var(--brass);color:#1a1407;font-size:.7rem;font-weight:800;min-width:19px;height:19px;border-radius:999px;display:grid;place-items:center;padding:0 4px}
+  .cart-btn svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.8;flex:none}
+  .cart-count{position:absolute;top:-7px;right:-7px;background:var(--brass);color:#1a1407;font-size:.7rem;font-weight:800;min-width:19px;height:19px;border-radius:999px;display:none;place-items:center;padding:0 4px}
+  .snipcart-total-price{font-size:.82rem;font-weight:700;color:var(--ink);white-space:nowrap}
   .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
   .hamburger span{width:24px;height:2px;background:var(--ink);transition:.3s}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -281,6 +272,8 @@
     .cmp{font-size:.84rem}.cmp th,.cmp td{padding:.7rem .6rem}
     body{font-size:16px}
   }
+  .snipcart-customer-signin{background:none;border:1px solid var(--line);border-radius:10px;height:44px;padding:0 1rem;font-family:"Hanken Grotesk",system-ui,sans-serif;font-size:.85rem;font-weight:600;color:var(--ink-2);cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap}
+  .snipcart-customer-signin:hover{border-color:var(--ink);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -303,7 +296,7 @@
     <button class="snipcart-customer-signin">My account</button>
     <button class="cart-btn snipcart-checkout" aria-label="Cart">
       <svg viewBox="0 0 24 24"><path d="M5 7h14l-1.2 11a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9zM9 7V5a3 3 0 0 1 6 0v2"/></svg>
-      <span class="snipcart-items-count"></span><span class="snipcart-total-price"></span>
+      <span class="cart-count snipcart-items-count"></span><span class="snipcart-total-price"></span>
     </button>
     <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -353,7 +346,7 @@
     <div class="grid" id="product-grid">
       <!-- product cards (data-* powers the cart) -->
       <div class="card reveal">
-        <div class="ph"><span class="tag">Bestseller</span><img src="images/lock1.jpg" data-label="Keypad Deadbolt" alt="Keypad Deadbolt" onerror="imgFallback(this)"></div>
+        <div class="ph"><span class="tag">Bestseller</span><img src="images/lock1.jpg" data-label="Keypad Deadbolt" alt="Keypad Deadbolt" loading="lazy" onerror="imgFallback(this)"></div>
         <div class="body">
           <div class="stars">★★★★★</div>
           <h3>Keypad Deadbolt</h3>
@@ -363,12 +356,14 @@
             data-item-name="Keypad Deadbolt"
             data-item-price="169"
             data-item-url="https://locksupplydirect.com/"
-            data-item-image="images/lock1.jpg"
-            data-item-description="Wi-Fi + app + backlit keypad. Share codes, auto-lock, remote access. Replaces a standard deadbolt.">Add to cart</button></div>
+            data-item-image="https://locksupplydirect.com/images/lock1.jpg"
+            data-item-description="Wi-Fi + app + backlit keypad. Share codes, auto-lock, remote access. Replaces a standard deadbolt."
+            data-item-shippable="true"
+            data-item-quantity="1">Add to cart</button></div>
         </div>
       </div>
       <div class="card reveal">
-        <div class="ph"><span class="tag brass">Top rated</span><img src="images/lock2.jpg" data-label="Fingerprint Pro" alt="Fingerprint Pro" onerror="imgFallback(this)"></div>
+        <div class="ph"><span class="tag brass">Top rated</span><img src="images/lock2.jpg" data-label="Fingerprint Pro" alt="Fingerprint Pro" loading="lazy" onerror="imgFallback(this)"></div>
         <div class="body">
           <div class="stars">★★★★★</div>
           <h3>Fingerprint Pro</h3>
@@ -378,12 +373,14 @@
             data-item-name="Fingerprint Pro"
             data-item-price="229"
             data-item-url="https://locksupplydirect.com/"
-            data-item-image="images/lock2.jpg"
-            data-item-description="Unlock in 0.3s with your fingerprint, plus code, app and key. Matter-over-Thread for rock-solid connection.">Add to cart</button></div>
+            data-item-image="https://locksupplydirect.com/images/lock2.jpg"
+            data-item-description="Unlock in 0.3s with your fingerprint, plus code, app and key. Matter-over-Thread for rock-solid connection."
+            data-item-shippable="true"
+            data-item-quantity="1">Add to cart</button></div>
         </div>
       </div>
       <div class="card reveal">
-        <div class="ph"><span class="tag">No drilling</span><img src="images/lock3.jpg" data-label="Retrofit Lock" alt="Retrofit Lock" onerror="imgFallback(this)"></div>
+        <div class="ph"><span class="tag">No drilling</span><img src="images/lock3.jpg" data-label="Retrofit Lock" alt="Retrofit Lock" loading="lazy" onerror="imgFallback(this)"></div>
         <div class="body">
           <div class="stars">★★★★☆</div>
           <h3>Retrofit Smart Lock</h3>
@@ -393,12 +390,14 @@
             data-item-name="Retrofit Smart Lock"
             data-item-price="149"
             data-item-url="https://locksupplydirect.com/"
-            data-item-image="images/lock3.jpg"
-            data-item-description="Mounts over your existing deadbolt in minutes — keep your keys. Perfect for renters and apartments.">Add to cart</button></div>
+            data-item-image="https://locksupplydirect.com/images/lock3.jpg"
+            data-item-description="Mounts over your existing deadbolt in minutes — keep your keys. Perfect for renters and apartments."
+            data-item-shippable="true"
+            data-item-quantity="1">Add to cart</button></div>
         </div>
       </div>
       <div class="card reveal">
-        <div class="ph"><span class="tag">All-in-one</span><img src="images/lock4.jpg" data-label="Smart Lever + Handle" alt="Smart Lever and Handle" onerror="imgFallback(this)"></div>
+        <div class="ph"><span class="tag">All-in-one</span><img src="images/lock4.jpg" data-label="Smart Lever + Handle" alt="Smart Lever and Handle" loading="lazy" onerror="imgFallback(this)"></div>
         <div class="body">
           <div class="stars">★★★★★</div>
           <h3>Smart Lever + Handle</h3>
@@ -408,8 +407,10 @@
             data-item-name="Smart Lever + Handle"
             data-item-price="279"
             data-item-url="https://locksupplydirect.com/"
-            data-item-image="images/lock4.jpg"
-            data-item-description="Integrated handle and lock in one unit. Fingerprint, code, app and key. A clean, modern upgrade.">Add to cart</button></div>
+            data-item-image="https://locksupplydirect.com/images/lock4.jpg"
+            data-item-description="Integrated handle and lock in one unit. Fingerprint, code, app and key. A clean, modern upgrade."
+            data-item-shippable="true"
+            data-item-quantity="1">Add to cart</button></div>
         </div>
       </div>
     </div>
