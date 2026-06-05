@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Templates</title></head>
+  <body>
+    <div id="snipcart-templates">
+
+      <snipcart-customer-dashboard-order section="withdrawal-action">
+        <button
+          type="button"
+          class="my-withdrawal-button"
+          v-if="!hasPendingWithdrawal
+            && ['Processed', 'Shipped', 'Delivered'].includes(status)
+            && (Date.now() - new Date(date).getTime()) < 14 * 24 * 60 * 60 * 1000"
+          @click="snipcart.api.withdrawal.openConfirmation({
+            orderInvoiceNumber: invoiceNumber,
+            email: customerEmail,
+            customerName: customerFullName,
+          })"
+        >
+          Request withdrawal
+        </button>
+      </snipcart-customer-dashboard-order>
+
+      <billing section="bottom">
+        <fieldset class="snipcart-form__set">
+          <div class="snipcart-form__field">
+            <div class="snipcart-form__field-checkbox">
+              <snipcart-checkbox name="subscribeToNewsletter"></snipcart-checkbox>
+              <snipcart-label for="subscribeToNewsletter" class="snipcart__font--tiny snipcart-form__label--checkbox">
+                Subscribe to newsletter
+              </snipcart-label>
+            </div>
+          </div>
+        </fieldset>
+      </billing>
+
+      <billing section="bottom">
+        <fieldset class="snipcart-form__set">
+          <div class="snipcart-form__field">
+            <p class="snipcart__font--tiny">Customer type</p>
+            <snipcart-radio name="customerType" value="Corporate">
+              Corporate
+            </snipcart-radio>
+            <snipcart-radio name="customerType" value="Personal">
+              Personal
+            </snipcart-radio>
+            <snipcart-radio name="customerType" value="NonProfit">
+              Non-profit
+            </snipcart-radio>
+          </div>
+        </fieldset>
+      </billing>
+
+      <billing section="bottom">
+        <fieldset class="snipcart-form__set">
+          <div class="snipcart-form__field">
+            <snipcart-label class="snipcart__font--tiny" for="vatNumber">
+              VAT Number
+            </snipcart-label>
+            <snipcart-input name="vatNumber"></snipcart-input>
+          </div>
+        </fieldset>
+      </billing>
+
+      <payment section="top">
+        <div>
+          <p>
+            <snipcart-checkbox name="privacy-policy" required></snipcart-checkbox>
+            <snipcart-label for="privacy-policy">I have read and agree to the&nbsp;<a href="#">Privacy Policy</a></snipcart-label>
+          </p>
+        </div>
+      </payment>
+
+    </div>
+  </body>
+</html>

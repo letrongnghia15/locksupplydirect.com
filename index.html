@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ============================================================= -->
+<!--  QUICK-EDIT GUIDE  (replace anything inside [ SQUARE BRACKETS ]) -->
+<!--  • Brand: the demo name is "Lock Supply Direct" — rename it everywhere to     -->
+<!--    your chosen brand (and run a USPTO + domain check first).      -->
+<!--  • Products: edit names, prices, specs in the "Shop" section.     -->
+<!--  • Photos: drop images into an /images folder (lock1.jpg ...);    -->
+<!--    until then, styled placeholders show automatically.            -->
+<!--  • Orders: paste your Formspree endpoint into [FORMSPREE_ENDPOINT]-->
+<!--    (free at formspree.io). For real CARD payments, replace each    -->
+<!--    product's data-buy with a Stripe Payment Link or Shopify Buy    -->
+<!--    Button — a static GitHub Pages site can't process cards alone.  -->
+<!--  • Contact: [EMAIL], [PHONE].                                      -->
+<!-- ============================================================= -->
+
+<title>Lock Supply Direct · Smart Locks &amp; Keyless Entry for Modern Homes</title>
+<meta name="description" content="Premium smart locks with keypad, fingerprint and app control. Works with Alexa, Google & Apple. Easy install, real support, and a fit guarantee. Built for homeowners and short-term rental hosts." />
+<meta property="og:title" content="Lock Supply Direct · Keyless Security, Done Right" />
+<meta property="og:description" content="Smart locks that fit your door and your life. Free US shipping, 30-day returns, expert support." />
+<meta property="og:type" content="website" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315161a'/%3E%3Cpath d='M11 14v-2a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1zm2 0h6v-2a3 3 0 0 0-6 0z' fill='%23c8962e'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdn.snipcart.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.css" />
+
+<style>
+  /* ===================== THEME (black + brass + white) ===================== */
+  :root{
+    --bg:#ffffff;
+    --soft:#f5f4f1;          /* warm light surface */
+    --ink:#15161a;           /* near-black */
+    --ink-2:#23252b;
+    --muted:#63656d;
+    --line:#e7e4dd;
+    --brass:#c8962e;         /* accent: brass/gold */
+    --brass-d:#a87a1f;
+    --steel:#6b7280;
+    --ok:#1f9d5b;
+    --r:16px;
+    --maxw:1200px;
+    --shadow:0 24px 60px -28px rgba(21,22,26,.45);
+    --shadow-sm:0 12px 30px -18px rgba(21,22,26,.5);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:130px;-webkit-text-size-adjust:100%}
+  body{font-family:"Hanken Grotesk",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px;overflow-x:hidden}
+  h1,h2,h3,h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;line-height:1.03;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,5vw,40px)}
+
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-d);display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--brass)}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.5rem;border-radius:10px;font-family:"Hanken Grotesk";font-weight:700;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:transform .2s var(--ease),box-shadow .2s,background .2s,color .2s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-ink{background:var(--ink);color:#fff}
+  .btn-ink:hover{background:#000;box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+  .btn-brass{background:var(--brass);color:#1a1407}
+  .btn-brass:hover{background:var(--brass-d);color:#fff;transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+  .btn-out{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-out:hover{border-color:var(--ink);transform:translateY(-2px)}
+
+  /* ===================== TOP BARS ===================== */
+  .announce{background:var(--ink);color:#f4efe4;font-size:.82rem;letter-spacing:.02em;text-align:center;padding:.55rem 1rem}
+  .announce b{color:var(--brass)}
+  header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:1.4rem;padding:.9rem 0}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.35rem;letter-spacing:-.03em;margin-right:auto}
+  .brand .mark{width:34px;height:34px;border-radius:9px;background:var(--ink);display:grid;place-items:center;flex:none}
+  .brand .mark svg{width:20px;height:20px}
+  .menu{display:flex;align-items:center;gap:1.7rem;list-style:none}
+  .menu a{font-size:.93rem;font-weight:600;color:var(--ink-2);transition:color .2s;position:relative}
+  .menu a::after{content:"";position:absolute;left:0;bottom:-5px;height:2px;width:0;background:var(--brass);transition:width .25s var(--ease)}
+  .menu a:hover::after{width:100%}
+  .cart-btn{position:relative;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;display:grid;place-items:center;cursor:pointer;transition:border-color .2s}
+  .cart-btn:hover{border-color:var(--ink)}
+  .cart-btn svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.8}
+  .cart-count{position:absolute;top:-7px;right:-7px;background:var(--brass);color:#1a1407;font-size:.7rem;font-weight:800;min-width:19px;height:19px;border-radius:999px;display:grid;place-items:center;padding:0 4px}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+  .hamburger span{width:24px;height:2px;background:var(--ink);transition:.3s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ===================== HERO ===================== */
+  .hero{padding:clamp(3rem,7vw,5.5rem) 0}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:.5rem 0 1.2rem}
+  .hero h1 .hl{color:var(--brass-d)}
+  .hero p.lead{font-size:1.13rem;color:var(--muted);max-width:48ch;margin-bottom:1.8rem}
+  .hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.8rem}
+  .works{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+  .works b{color:var(--ink)}
+  .works .chips{display:flex;gap:.5rem;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;font-weight:600;font-size:.78rem;color:var(--ink-2)}
+  .hero-photo{position:relative}
+  .hero-photo .frame{border-radius:22px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/5;background:var(--soft)}
+  .hero-photo .frame img{width:100%;height:100%;object-fit:cover}
+  .hero-card{position:absolute;left:-18px;bottom:26px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:.7rem}
+  .hero-card .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(31,157,91,.16)}
+  .hero-card b{font-size:.9rem}.hero-card span{display:block;font-size:.76rem;color:var(--muted)}
+
+  /* ===================== SECTION SHELL ===================== */
+  .section{padding:clamp(3.5rem,8vw,6rem) 0}
+  .section.soft{background:var(--soft)}
+  .section.ink{background:var(--ink);color:#f3efe6}
+  .section.ink h2,.section.ink h3{color:#fff}
+  .section.ink .muted{color:rgba(243,239,230,.7)}
+  .head{max-width:620px;margin-bottom:2.6rem}
+  .head.center{margin-inline:auto;text-align:center}
+  .head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin-bottom:.7rem}
+  .head p{color:var(--muted)}
+  .section.ink .head p{color:rgba(243,239,230,.72)}
+
+  /* trust strip */
+  .strip{display:flex;justify-content:center;gap:clamp(1.2rem,4vw,3rem);flex-wrap:wrap;padding:1.6rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .strip .it{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:.92rem;color:var(--ink-2)}
+  .strip .it svg{width:22px;height:22px;stroke:var(--brass-d);fill:none;stroke-width:1.8}
+
+  /* ===================== PRODUCTS ===================== */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-sm);border-color:transparent}
+  .card .ph{aspect-ratio:1/1;background:var(--soft);position:relative;overflow:hidden}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+  .card:hover .ph img{transform:scale(1.05)}
+  .card .tag{position:absolute;top:10px;left:10px;background:var(--ink);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .6rem;border-radius:7px}
+  .card .tag.brass{background:var(--brass);color:#1a1407}
+  .card .body{padding:1.1rem 1.1rem 1.2rem;display:flex;flex-direction:column;flex:1}
+  .card .stars{color:var(--brass);font-size:.85rem;letter-spacing:.1em;margin-bottom:.4rem}
+  .card h3{font-size:1.12rem;margin-bottom:.3rem}
+  .card .spec{font-size:.85rem;color:var(--muted);margin-bottom:.9rem;flex:1}
+  .card .row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:auto}
+  .card .price{font-family:"Bricolage Grotesque";font-weight:700;font-size:1.4rem}
+  .card .price s{font-family:"Hanken Grotesk";font-weight:500;font-size:.9rem;color:var(--muted);margin-left:.3rem}
+  .add{background:var(--ink);color:#fff;border:0;border-radius:9px;padding:.6rem 1rem;font-family:"Hanken Grotesk";font-weight:700;font-size:.85rem;cursor:pointer;transition:background .2s,transform .15s}
+  .add:hover{background:var(--brass);color:#1a1407}
+  .add:active{transform:scale(.96)}
+
+  /* ===================== FIT CHECKER ===================== */
+  .checker{max-width:760px;margin-inline:auto;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-sm);padding:clamp(1.6rem,4vw,2.6rem)}
+  .q{margin-bottom:1.5rem}
+  .q p{font-weight:700;font-family:"Bricolage Grotesque";margin-bottom:.7rem;font-size:1.02rem}
+  .opts{display:flex;gap:.6rem;flex-wrap:wrap}
+  .opt{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.65rem 1.1rem;font-weight:600;font-size:.9rem;cursor:pointer;transition:.2s}
+  .opt:hover{border-color:var(--ink)}
+  .opt.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .checker-result{display:none;margin-top:.5rem;padding:1.3rem;border-radius:14px;background:var(--soft);border:1px solid var(--line)}
+  .checker-result.show{display:block;animation:fade .4s var(--ease)}
+  .checker-result h4{font-size:1.15rem;margin-bottom:.4rem}
+  .checker-result p{font-size:.95rem;color:var(--muted);margin-bottom:1rem}
+  .checker-result .pick{display:flex;align-items:center;gap:.8rem;font-weight:700}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  /* ===================== STEPS ===================== */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;counter-reset:s}
+  .step{position:relative;padding:1.6rem;border:1px solid rgba(255,255,255,.14);border-radius:var(--r)}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:"Bricolage Grotesque";font-weight:800;font-size:2.2rem;color:var(--brass);display:block;margin-bottom:.6rem}
+  .step h4{font-size:1.15rem;margin-bottom:.4rem}
+  .step p{font-size:.92rem;color:rgba(243,239,230,.72)}
+
+  /* ===================== HOSTS ===================== */
+  .hosts{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+  .hosts .frame{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:5/4;background:var(--soft)}
+  .hosts .frame img{width:100%;height:100%;object-fit:cover}
+  .feat{display:flex;flex-direction:column;gap:1rem;margin-top:1.4rem}
+  .feat .f{display:flex;gap:.9rem;align-items:flex-start}
+  .feat .f svg{flex:none;width:26px;height:26px;stroke:var(--brass-d);fill:none;stroke-width:1.8;margin-top:2px}
+  .feat .f b{display:block;font-family:"Bricolage Grotesque"}
+  .feat .f span{font-size:.92rem;color:var(--muted)}
+
+  /* ===================== COMPARE ===================== */
+  .cmp{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .cmp th,.cmp td{padding:1rem 1.1rem;text-align:left;border-bottom:1px solid var(--line);font-size:.95rem}
+  .cmp th{font-family:"Bricolage Grotesque";font-size:.85rem;letter-spacing:.02em;background:var(--soft)}
+  .cmp td.y{color:var(--ok);font-weight:700}
+  .cmp td.n{color:#b54a3a;font-weight:700}
+  .cmp tr td:first-child{font-weight:600}
+  .cmp .us{background:rgba(200,150,46,.07)}
+
+  /* ===================== REVIEWS / FAQ ===================== */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+  .rev{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;display:flex;flex-direction:column}
+  .rev .stars{color:var(--brass);letter-spacing:.1em;margin-bottom:.8rem}
+  .rev p{font-size:.95rem;margin-bottom:1.2rem;flex:1}
+  .rev .who{display:flex;align-items:center;gap:.7rem}
+  .rev .av{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:"Bricolage Grotesque";font-weight:700;flex:none}
+  .rev .who b{display:block;font-size:.92rem}.rev .who span{font-size:.78rem;color:var(--muted)}
+
+  .faq{max-width:800px;margin-inline:auto}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa button{width:100%;background:none;border:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 0;text-align:left;font-family:"Bricolage Grotesque";font-weight:600;font-size:1.1rem;color:var(--ink)}
+  .qa .pl{flex:none;width:26px;height:26px;position:relative;transition:transform .3s var(--ease)}
+  .qa .pl::before,.qa .pl::after{content:"";position:absolute;background:var(--brass-d);border-radius:2px}
+  .qa .pl::before{left:50%;top:3px;width:2px;height:20px;transform:translateX(-50%)}
+  .qa .pl::after{top:50%;left:3px;height:2px;width:20px;transform:translateY(-50%)}
+  .qa.open .pl{transform:rotate(135deg)}
+  .qa .ans{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
+  .qa .ans p{padding:0 0 1.25rem;color:var(--muted);font-size:.95rem}
+
+  /* ===================== SUPPORT / CONTACT ===================== */
+  .support{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,4rem)}
+  .clines{display:flex;flex-direction:column;gap:.8rem;margin-top:1.2rem}
+  .clines .l{display:flex;align-items:center;gap:.7rem;font-weight:600}
+  .clines svg{width:20px;height:20px;stroke:var(--brass-d);fill:none;stroke-width:1.8;flex:none}
+  form{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(1.4rem,4vw,2.2rem);box-shadow:var(--shadow-sm)}
+  .field{margin-bottom:1rem}.row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  label{display:block;font-size:.8rem;font-weight:700;margin-bottom:.4rem}
+  input,textarea{width:100%;padding:.8rem .95rem;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:.95rem;background:#fcfbf9;transition:border-color .2s,box-shadow .2s}
+  input:focus,textarea:focus{outline:0;border-color:var(--brass);box-shadow:0 0 0 4px rgba(200,150,46,.14)}
+  textarea{resize:vertical;min-height:90px}
+  .fs{display:none;text-align:center;padding:1rem 0}.fs.show{display:block}
+  .fs .ok{width:54px;height:54px;border-radius:50%;background:rgba(31,157,91,.12);display:grid;place-items:center;margin:0 auto .8rem}
+  .fs .ok svg{width:26px;height:26px;stroke:var(--ok);fill:none;stroke-width:2.4}
+
+  /* ===================== FOOTER ===================== */
+  footer{background:var(--ink);color:rgba(243,239,230,.78);padding:3.4rem 0 2rem}
+  .ftop{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2.4rem}
+  .fbrand{display:flex;align-items:center;gap:.6rem;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:.7rem}
+  .fbrand .mark{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.1);display:grid;place-items:center}
+  .fbrand .mark svg{width:19px;height:19px}
+  .fcol h5{color:#fff;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:1rem}
+  .fcol a{display:block;color:rgba(243,239,230,.72);font-size:.92rem;margin-bottom:.55rem;transition:color .2s}
+  .fcol a:hover{color:var(--brass)}
+  .fbot{border-top:1px solid rgba(255,255,255,.13);padding-top:1.5rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.8rem;color:rgba(243,239,230,.55)}
+
+  /* ===================== CART DRAWER ===================== */
+  .overlay{position:fixed;inset:0;background:rgba(21,22,26,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.3s;z-index:90}
+  .overlay.show{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:#fff;z-index:100;transform:translateX(100%);transition:transform .35s var(--ease);display:flex;flex-direction:column;box-shadow:-20px 0 60px -20px rgba(0,0,0,.4)}
+  .drawer.show{transform:none}
+  .dhead{display:flex;align-items:center;justify-content:space-between;padding:1.3rem 1.4rem;border-bottom:1px solid var(--line)}
+  .dhead h3{font-size:1.2rem}
+  .dclose{background:none;border:0;font-size:1.6rem;cursor:pointer;line-height:1;color:var(--muted)}
+  .ditems{flex:1;overflow-y:auto;padding:1rem 1.4rem}
+  .ditem{display:flex;gap:.9rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+  .ditem .thumb{width:62px;height:62px;border-radius:10px;background:var(--soft);flex:none;overflow:hidden}
+  .ditem .thumb img{width:100%;height:100%;object-fit:cover}
+  .ditem .info{flex:1}.ditem .info b{display:block;font-size:.92rem;font-family:"Bricolage Grotesque"}
+  .ditem .info .p{color:var(--brass-d);font-weight:700;font-size:.9rem}
+  .qty{display:inline-flex;align-items:center;gap:.6rem;margin-top:.4rem;border:1px solid var(--line);border-radius:8px;padding:.15rem .3rem}
+  .qty button{width:24px;height:24px;border:0;background:none;cursor:pointer;font-size:1rem;color:var(--ink)}
+  .qty span{font-size:.85rem;min-width:18px;text-align:center}
+  .drm{background:none;border:0;color:var(--muted);font-size:.78rem;cursor:pointer;text-decoration:underline;align-self:flex-start;margin-top:.3rem}
+  .empty{text-align:center;color:var(--muted);padding:3rem 1rem;font-size:.95rem}
+  .dfoot{padding:1.3rem 1.4rem;border-top:1px solid var(--line)}
+  .dtotal{display:flex;justify-content:space-between;font-family:"Bricolage Grotesque";font-weight:700;font-size:1.2rem;margin-bottom:1rem}
+  .dnote{font-size:.74rem;color:var(--muted);margin-top:.7rem;text-align:center}
+
+  /* checkout panel inside drawer */
+  .checkout{display:none;padding:0 1.4rem 1.3rem}
+  .checkout.show{display:block}
+  .checkout .field{margin-bottom:.8rem}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===================== RESPONSIVE ===================== */
+  @media(max-width:1000px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .hero-grid,.hosts,.support{grid-template-columns:1fr}
+    .hero-photo{order:-1;max-width:420px}
+    .steps{grid-template-columns:1fr}
+    .reviews{grid-template-columns:1fr}
+  }
+  @media(max-width:640px){
+    .menu{display:none}.hamburger{display:flex}
+    .menu.m{display:flex;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:#fff;padding:1rem 24px 1.4rem;gap:1rem;border-bottom:1px solid var(--line);box-shadow:var(--shadow-sm)}
+    .row2{grid-template-columns:1fr}
+    .cmp{font-size:.84rem}.cmp th,.cmp td{padding:.7rem .6rem}
+    body{font-size:16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">Free US shipping over $99 &nbsp;·&nbsp; 30-day returns &nbsp;·&nbsp; <b>Fits most US doors — guaranteed</b></div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <span class="mark"><svg viewBox="0 0 32 32"><path d="M11 14v-2a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1zm2 0h6v-2a3 3 0 0 0-6 0z" fill="#c8962e"/></svg></span>
+      Lock Supply Direct
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#fit">Fit Checker</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#hosts">For Hosts</a></li>
+      <li><a href="#faq">Support</a></li>
+    </ul>
+    <button class="snipcart-customer-signin">My account</button>
+    <button class="cart-btn snipcart-checkout" aria-label="Cart">
+      <svg viewBox="0 0 24 24"><path d="M5 7h14l-1.2 11a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9zM9 7V5a3 3 0 0 1 6 0v2"/></svg>
+      <span class="snipcart-items-count"></span><span class="snipcart-total-price"></span>
+    </button>
+    <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Keyless security, done right</span>
+      <h1>Your door, <span class="hl">smarter</span> &amp; safer.</h1>
+      <p class="lead">Premium smart locks with keypad, fingerprint, and app control — easy to install, backed by real support, and guaranteed to fit your door. Built for homeowners and short-term rental hosts.</p>
+      <div class="hero-actions">
+        <a href="#shop" class="btn btn-ink">Shop Smart Locks</a>
+        <a href="#fit" class="btn btn-out">Will it fit my door? →</a>
+      </div>
+      <div class="works">
+        <b>Works with</b>
+        <div class="chips"><span class="chip">Alexa</span><span class="chip">Google Home</span><span class="chip">Apple Home</span><span class="chip">Matter</span></div>
+      </div>
+    </div>
+    <div class="hero-photo reveal">
+      <div class="frame"><img src="images/lock-hero.jpg" data-label="Smart lock on a modern door" alt="Smart lock" onerror="imgFallback(this)"></div>
+      <div class="hero-card"><span class="dot"></span><div><b>4.8 / 5 rating</b><span>2,400+ doors secured</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="wrap">
+  <div class="strip reveal">
+    <div class="it"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg> Anti-pick &amp; drill-tested</div>
+    <div class="it"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></svg> Installs in ~15 min</div>
+    <div class="it"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 11l8 5 8-5"/></svg> Free US shipping $99+</div>
+    <div class="it"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg> 30-day returns</div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">The collection</span>
+      <h2>Find your lock</h2>
+      <p>Four ways to go keyless. Every model ships with US-based support and a fit guarantee.</p>
+    </div>
+    <div class="grid" id="product-grid">
+      <!-- product cards (data-* powers the cart) -->
+      <div class="card reveal">
+        <div class="ph"><span class="tag">Bestseller</span><img src="images/lock1.jpg" data-label="Keypad Deadbolt" alt="Keypad Deadbolt" onerror="imgFallback(this)"></div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <h3>Keypad Deadbolt</h3>
+          <p class="spec">Wi-Fi + app + backlit keypad. Share codes, auto-lock, remote access. Replaces a standard deadbolt.</p>
+          <div class="row"><span class="price">$169</span><button class="add snipcart-add-item"
+            data-item-id="keypad"
+            data-item-name="Keypad Deadbolt"
+            data-item-price="169"
+            data-item-url="/"
+            data-item-image="images/lock1.jpg"
+            data-item-description="Wi-Fi + app + backlit keypad. Share codes, auto-lock, remote access. Replaces a standard deadbolt.">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="ph"><span class="tag brass">Top rated</span><img src="images/lock2.jpg" data-label="Fingerprint Pro" alt="Fingerprint Pro" onerror="imgFallback(this)"></div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <h3>Fingerprint Pro</h3>
+          <p class="spec">Unlock in 0.3s with your fingerprint, plus code, app &amp; key. Matter-over-Thread for rock-solid connection.</p>
+          <div class="row"><span class="price">$229</span><button class="add snipcart-add-item"
+            data-item-id="fingerprint"
+            data-item-name="Fingerprint Pro"
+            data-item-price="229"
+            data-item-url="/"
+            data-item-image="images/lock2.jpg"
+            data-item-description="Unlock in 0.3s with your fingerprint, plus code, app and key. Matter-over-Thread for rock-solid connection.">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="ph"><span class="tag">No drilling</span><img src="images/lock3.jpg" data-label="Retrofit Lock" alt="Retrofit Lock" onerror="imgFallback(this)"></div>
+        <div class="body">
+          <div class="stars">★★★★☆</div>
+          <h3>Retrofit Smart Lock</h3>
+          <p class="spec">Mounts over your existing deadbolt in minutes — keep your keys. Perfect for renters and apartments.</p>
+          <div class="row"><span class="price">$149</span><button class="add snipcart-add-item"
+            data-item-id="retrofit"
+            data-item-name="Retrofit Smart Lock"
+            data-item-price="149"
+            data-item-url="/"
+            data-item-image="images/lock3.jpg"
+            data-item-description="Mounts over your existing deadbolt in minutes — keep your keys. Perfect for renters and apartments.">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="ph"><span class="tag">All-in-one</span><img src="images/lock4.jpg" data-label="Smart Lever + Handle" alt="Smart Lever and Handle" onerror="imgFallback(this)"></div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <h3>Smart Lever + Handle</h3>
+          <p class="spec">Integrated handle and lock in one unit. Fingerprint, code, app &amp; key. A clean, modern upgrade.</p>
+          <div class="row"><span class="price">$279</span><button class="add snipcart-add-item"
+            data-item-id="lever"
+            data-item-name="Smart Lever + Handle"
+            data-item-price="279"
+            data-item-url="/"
+            data-item-image="images/lock4.jpg"
+            data-item-description="Integrated handle and lock in one unit. Fingerprint, code, app and key. A clean, modern upgrade.">Add to cart</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIT CHECKER -->
+<section class="section soft" id="fit">
+  <div class="wrap">
+    <div class="head center reveal">
+      <span class="eyebrow" style="justify-content:center">No guesswork</span>
+      <h2>Will it fit your door?</h2>
+      <p>Answer three quick questions and we'll point you to the right lock — most returns happen from a wrong fit, so let's avoid that.</p>
+    </div>
+    <div class="checker reveal">
+      <div class="q" data-q="lock">
+        <p>1. What's on your door now?</p>
+        <div class="opts">
+          <button class="opt" data-v="deadbolt">Single-cylinder deadbolt</button>
+          <button class="opt" data-v="lever">Lever / handle lock</button>
+          <button class="opt" data-v="mortise">Mortise / unusual</button>
+          <button class="opt" data-v="rental">I rent — can't modify</button>
+        </div>
+      </div>
+      <div class="q" data-q="platform">
+        <p>2. Which do you use?</p>
+        <div class="opts">
+          <button class="opt" data-v="apple">Apple Home</button>
+          <button class="opt" data-v="google">Google / Alexa</button>
+          <button class="opt" data-v="none">None / not sure</button>
+        </div>
+      </div>
+      <div class="q" data-q="thick">
+        <p>3. Door thickness?</p>
+        <div class="opts">
+          <button class="opt" data-v="std">Standard (1⅜–1¾")</button>
+          <button class="opt" data-v="thick">Thicker than 1¾"</button>
+          <button class="opt" data-v="unsure">Not sure</button>
+        </div>
+      </div>
+      <div class="checker-result" id="fit-result">
+        <h4 id="fit-title"></h4>
+        <p id="fit-desc"></p>
+        <div class="pick"><span id="fit-pick"></span></div>
+        <div style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap">
+          <a href="#shop" class="btn btn-ink" id="fit-shop">View recommended lock</a>
+          <a href="#faq" class="btn btn-out">Still unsure? Ask us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section ink" id="how">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow" style="color:var(--brass)">Easy install</span>
+      <h2>Up and running in three steps</h2>
+      <p class="muted">No locksmith required for standard doors. A screwdriver and 15 minutes is all it takes.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><h4>Swap the lock</h4><p>Remove your old deadbolt and mount Lock Supply Direct with the included screws. Step-by-step video in the box.</p></div>
+      <div class="step"><h4>Connect the app</h4><p>Open the app, follow the guided setup, and link Alexa, Google, or Apple Home in a tap.</p></div>
+      <div class="step"><h4>Share access</h4><p>Create codes for family, guests, or cleaners — set them to expire whenever you like.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR HOSTS -->
+<section class="section" id="hosts">
+  <div class="wrap hosts">
+    <div class="frame reveal"><img src="images/hosts.jpg" data-label="Self check-in for rentals" alt="Self check-in" onerror="imgFallback(this)"></div>
+    <div class="reveal">
+      <span class="eyebrow">Built for Airbnb &amp; rental hosts</span>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:1rem">Hands-off check-in, every time</h2>
+      <p style="color:var(--muted)">Run by a host, for hosts. Give every guest a unique code that activates at check-in and expires at checkout — no key handoffs, no lockbox, no 2 a.m. calls.</p>
+      <div class="feat">
+        <div class="f"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg><div><b>Auto-expiring guest codes</b><span>Sync with your booking dates so access ends on its own.</span></div></div>
+        <div class="f"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 19V9l6-5 6 5v10"/></svg><div><b>Remote lock &amp; status</b><span>Check the door and lock it from anywhere, between stays.</span></div></div>
+        <div class="f"><svg viewBox="0 0 24 24"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg><div><b>Access log</b><span>See exactly who came and went, and when.</span></div></div>
+      </div>
+      <a href="#shop" class="btn btn-brass" style="margin-top:1.6rem">Shop host-ready locks</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="section soft">
+  <div class="wrap">
+    <div class="head center reveal">
+      <span class="eyebrow" style="justify-content:center">Why Lock Supply Direct</span>
+      <h2>The honest comparison</h2>
+    </div>
+    <div class="reveal" style="overflow-x:auto">
+      <table class="cmp">
+        <thead><tr><th>What matters</th><th class="us">Lock Supply Direct</th><th>Big-box brands</th><th>Cheap marketplace locks</th></tr></thead>
+        <tbody>
+          <tr><td>Fit guarantee &amp; checker</td><td class="us y">Yes</td><td class="n">Rarely</td><td class="n">No</td></tr>
+          <tr><td>US-based human support</td><td class="us y">Yes</td><td>Sometimes</td><td class="n">No</td></tr>
+          <tr><td>Works with Alexa/Google/Apple</td><td class="us y">All three</td><td>Varies</td><td class="n">Often not</td></tr>
+          <tr><td>Matter / Thread ready</td><td class="us y">Yes</td><td>Some</td><td class="n">No</td></tr>
+          <tr><td>Host / multi-code features</td><td class="us y">Built-in</td><td>Limited</td><td class="n">No</td></tr>
+          <tr><td>Price</td><td class="us">Fair</td><td>Premium</td><td>Cheap (you'll see why)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section">
+  <div class="wrap">
+    <div class="head center reveal"><span class="eyebrow" style="justify-content:center">Verified buyers</span><h2>People sleep better with Lock Supply Direct</h2></div>
+    <div class="reviews reveal">
+      <div class="rev"><div class="stars">★★★★★</div><p>"[Real review here. Setup took 15 minutes and it connected to Alexa first try. The keypad is gorgeous.]"</p><div class="who"><span class="av">D</span><div><b>[Customer Name]</b><span>Verified buyer</span></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"[Real review here. I host 3 Airbnbs — auto-expiring codes have been a game changer. No more lockbox.]"</p><div class="who"><span class="av">S</span><div><b>[Customer Name]</b><span>Verified buyer</span></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"[Real review here. Had a question, emailed support, got a real answer in an hour. Rare these days.]"</p><div class="who"><span class="av">M</span><div><b>[Customer Name]</b><span>Verified buyer</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section soft" id="faq">
+  <div class="wrap">
+    <div class="head center reveal"><span class="eyebrow" style="justify-content:center">Support</span><h2>Questions, answered</h2></div>
+    <div class="faq reveal">
+      <div class="qa"><button>Will it work with my door?<span class="pl"></span></button><div class="ans"><p>Most standard US doors with a single-cylinder deadbolt are a perfect fit. Use the Fit Checker above, or message us a photo of your current lock and we'll confirm before you buy.</p></div></div>
+      <div class="qa"><button>Is it hard to install?<span class="pl"></span></button><div class="ans"><p>No — for a standard deadbolt it's a screwdriver and about 15 minutes, with a video guide included. The Retrofit model needs no drilling at all. For unusual doors we'll point you to a local pro.</p></div></div>
+      <div class="qa"><button>What if it loses connection?<span class="pl"></span></button><div class="ans"><p>Our Wi-Fi and Matter/Thread models are built to stay connected, and your codes still work on the keypad even if the internet drops. If anything acts up, our US support team will sort it out.</p></div></div>
+      <div class="qa"><button>What's the return &amp; warranty policy?<span class="pl"></span></button><div class="ans"><p>30-day no-hassle returns and a [#]-year warranty on every lock. If a unit is defective, we replace it — no runaround.</p></div></div>
+      <div class="qa"><button>Do you offer bulk pricing for hosts/property managers?<span class="pl"></span></button><div class="ans"><p>Yes. If you're outfitting multiple units, reach out below for host/volume pricing.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT / CONTACT -->
+<section class="section" id="contact">
+  <div class="wrap support">
+    <div class="reveal">
+      <span class="eyebrow">Talk to a human</span>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:.8rem">Not sure which lock? Ask us.</h2>
+      <p style="color:var(--muted)">Send your door details (or a photo) and we'll recommend the right fit — usually within a few hours. Bulk/host inquiries welcome.</p>
+      <div class="clines">
+        <div class="l"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg> [EMAIL]</div>
+        <div class="l"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2 1a12 12 0 0 0 5 5l1-2 5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg> [PHONE]</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <form id="ask-form" action="[FORMSPREE_ENDPOINT]" method="POST" novalidate>
+        <div class="row2">
+          <div class="field"><label for="aname">Name</label><input id="aname" name="name" required></div>
+          <div class="field"><label for="aemail">Email</label><input id="aemail" name="email" type="email" required></div>
+        </div>
+        <div class="field"><label for="adoor">Your door / question</label><textarea id="adoor" name="message" placeholder="e.g. I have a single-cylinder deadbolt, ~1¾&quot; door, use Alexa. Which lock?"></textarea></div>
+        <button type="submit" class="btn btn-ink" style="width:100%">Send my question</button>
+      </form>
+      <div class="fs" id="ask-success"><div class="ok"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div><h3>Got it!</h3><p style="color:var(--muted)">We'll reply with a recommendation shortly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="ftop">
+      <div style="max-width:300px">
+        <div class="fbrand"><span class="mark"><svg viewBox="0 0 32 32"><path d="M11 14v-2a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1zm2 0h6v-2a3 3 0 0 0-6 0z" fill="#c8962e"/></svg></span>Lock Supply Direct</div>
+        <p style="font-size:.9rem">Keyless security for modern homes and rentals. Free US shipping, real support, fit guaranteed.</p>
+      </div>
+      <div class="fcol"><h5>Shop</h5><a href="#shop">Keypad Deadbolt</a><a href="#shop">Fingerprint Pro</a><a href="#shop">Retrofit Lock</a><a href="#shop">Smart Lever</a></div>
+      <div class="fcol"><h5>Learn</h5><a href="#fit">Fit Checker</a><a href="#how">How It Works</a><a href="#hosts">For Hosts</a><a href="#faq">Support</a></div>
+      <div class="fcol"><h5>Contact</h5><a href="mailto:[EMAIL]">[EMAIL]</a><a href="tel:[PHONE]">[PHONE]</a></div>
+    </div>
+    <div class="fbot"><span>© <span id="yr"></span> Lock Supply Direct. All rights reserved.</span><span>Works with Alexa · Google · Apple Home · Matter</span></div>
+  </div>
+</footer>
+
+
+<script>
+/* ---------- image placeholder fallback ---------- */
+function imgFallback(el){
+  if(el.dataset.fb) return; el.dataset.fb="1";
+  var label=el.dataset.label||"Photo";
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800">'+
+    '<rect width="800" height="800" fill="#15161a"/>'+
+    '<rect x="320" y="250" width="160" height="230" rx="22" fill="none" stroke="#c8962e" stroke-width="7"/>'+
+    '<path d="M345 250v-26a55 55 0 0 1 110 0v26" fill="none" stroke="#c8962e" stroke-width="7"/>'+
+    '<circle cx="400" cy="350" r="26" fill="#c8962e"/>'+
+    '<rect x="392" y="368" width="16" height="48" rx="8" fill="#c8962e"/>'+
+    '<text x="400" y="560" fill="#f3efe6" fill-opacity="0.85" font-family="Hanken Grotesk,sans-serif" font-size="30" text-anchor="middle">'+label+'</text>'+
+    '<text x="400" y="600" fill="#f3efe6" fill-opacity="0.45" font-family="Hanken Grotesk,sans-serif" font-size="19" text-anchor="middle">add image in /images</text></svg>';
+  el.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+}
+
+/* ---------- mobile menu ---------- */
+var ham=document.getElementById('ham'),menu=document.getElementById('menu');
+ham.addEventListener('click',function(){var o=menu.classList.toggle('m');ham.classList.toggle('open',o);});
+menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('m');ham.classList.remove('open');});});
+
+/* ---------- FAQ ---------- */
+document.querySelectorAll('.qa button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var qa=b.parentElement,ans=qa.querySelector('.ans'),open=qa.classList.contains('open');
+    document.querySelectorAll('.qa').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight=null;});
+    if(!open){qa.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}
+  });
+});
+
+/* ---------- reveal on scroll ---------- */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* ---------- fit checker ---------- */
+var answers={};
+document.querySelectorAll('.checker .q').forEach(function(q){
+  q.querySelectorAll('.opt').forEach(function(opt){
+    opt.addEventListener('click',function(){
+      q.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
+      opt.classList.add('sel');answers[q.dataset.q]=opt.dataset.v;
+      if(answers.lock&&answers.platform&&answers.thick) showFit();
+    });
+  });
+});
+function showFit(){
+  var pick,title,desc;
+  if(answers.lock==='rental'){pick='retrofit';title='The Retrofit Smart Lock is your match.';desc='Since you can\'t modify the door, the Retrofit mounts over your existing deadbolt — no drilling, fully reversible, and you keep your keys.';}
+  else if(answers.lock==='lever'){pick='lever';title='Go with the Smart Lever + Handle.';desc='Your door uses a handle/lever set, so the all-in-one Smart Lever is the clean replacement.';}
+  else if(answers.lock==='mortise'){pick='ask';title='Let\'s double-check your door.';desc='Mortise and unusual locks vary a lot. Send us a quick photo and measurements and we\'ll confirm the right fit before you buy.';}
+  else if(answers.platform==='apple'){pick='fingerprint';title='The Fingerprint Pro is ideal for you.';desc='It\'s our most reliable pick for Apple Home (Matter-over-Thread), with fingerprint, code, app, and key backup.';}
+  else {pick='keypad';title='The Keypad Deadbolt is your best start.';desc='It fits a standard single-cylinder deadbolt, works great with Alexa & Google, and shares codes easily.';}
+  var titles={keypad:'Keypad Deadbolt — $169',fingerprint:'Fingerprint Pro — $229',retrofit:'Retrofit Smart Lock — $149',lever:'Smart Lever + Handle — $279',ask:'Personalized help'};
+  document.getElementById('fit-title').textContent=title;
+  document.getElementById('fit-desc').textContent=desc + (answers.thick==='thick'?' Note: for doors thicker than 1¾", message us so we include the right spacer kit.':'');
+  document.getElementById('fit-pick').textContent='Recommended: '+titles[pick];
+  var shop=document.getElementById('fit-shop');
+  if(pick==='ask'){shop.textContent='Ask us about fit';shop.setAttribute('href','#contact');}
+  else{shop.textContent='Shop the '+titles[pick].split(' — ')[0];shop.setAttribute('href','#shop');}
+  document.getElementById('fit-result').classList.add('show');
+}
+
+/* ---------- forms (Formspree + email fallback) ---------- */
+function handleForm(form,success,buildBody,subject){
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var req=form.querySelectorAll('[required]'),ok=true;
+    req.forEach(function(i){if(!i.value.trim()){ok=false;i.style.borderColor='#cf6a52';}else{i.style.borderColor='';}});
+    var em=form.querySelector('[type=email]');
+    if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)){ok=false;em.style.borderColor='#cf6a52';}
+    if(!ok)return;
+    var action=form.getAttribute('action')||'';
+    var configured=action.indexOf('formspree.io')!==-1;
+    if(configured){
+      fetch(action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+        .then(function(r){if(r.ok){done();}else{fallback();}}).catch(fallback);
+    }else{fallback();}
+    function done(){form.style.display='none';success.classList.add('show');}
+    function fallback(){
+      var body=encodeURIComponent(buildBody());
+      window.location.href='mailto:[EMAIL]?subject='+encodeURIComponent(subject)+'&body='+body;
+      done();
+    }
+  });
+}
+handleForm(document.getElementById('ask-form'),document.getElementById('ask-success'),function(){
+  var f=document.getElementById('ask-form');
+  return 'Name: '+f.name.value+'\nEmail: '+f.email.value+'\n\nQuestion:\n'+f.message.value;
+},'Lock Supply Direct — fit question');
+
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+
+<script>
+  window.SnipcartSettings = {
+    publicApiKey: "YNjg2OGNkOTctMTY2ZC00N2EzLThjZjgtOWRkYjIzMmJiZmVmNjM5MTU3MDU3NTk2OTM5MzEz",
+    loadStrategy: window.location.hash.startsWith('#/') ? 'immediately' : 'on-user-interaction',
+    modalStyle: "side",
+    templatesUrl: "/snipcart-templates.html",
+  };
+</script>
+<script async src="https://cdn.snipcart.com/themes/v3.7.3/default/snipcart.js"></script>
+</body>
+</html>
